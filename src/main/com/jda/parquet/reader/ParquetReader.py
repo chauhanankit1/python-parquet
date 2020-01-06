@@ -1,13 +1,10 @@
-import numpy as np
-import pandas as pd
+from functools import partial
+from tempfile import TemporaryDirectory
+from storefact import get_store_from_url
+from kartothek.io.eager import read_table
 
-df = pd.DataFrame(
-    {
-        "A": 1.0,
-        "B": pd.Timestamp("20130102"),
-        "C": pd.Series(1, index=list(range(4)), dtype="float32"),
-        "D": np.array([3] * 4, dtype="int32"),
-        "E": pd.Categorical(["test", "train", "test", "prod"]),
-        "F": "foo",
-    }
-)
+
+dataset_dir = TemporaryDirectory()
+store_factory = partial(get_store_from_url, "hfs:///Users/1019021/Learn/python-parquet/resources")
+
+print(read_table("order_proposals_a6e8aef43203", store_factory, table="order_proposals"))
