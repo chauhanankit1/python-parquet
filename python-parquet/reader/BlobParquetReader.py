@@ -13,7 +13,7 @@ store_factory = partial(get_store_from_url,
 # read all at once
 df = read_table(dataset_uuid="order_proposals_a6e8aef43203", store=store_factory, table="order_proposals")
 # write aggregated df to disk
-df.to_parquet('sample.parquet', engine='pyarrow')
+df.to_parquet('sample.python-parquet', engine='pyarrow')
 
 # Approach 2
 # read iteratively
@@ -25,7 +25,7 @@ for partition_index, df_dict in enumerate(
         # print(f"Table: {table_name}. Data: \n{table_df}")
         df_frames = df_frames.append(table_df)
 # write aggregated df to disk
-df_frames.to_parquet('sample1.parquet', engine='pyarrow')
+df_frames.to_parquet('sample1.python-parquet', engine='pyarrow')
 
 # Approach 3
 # read with dask.delayed
@@ -38,4 +38,4 @@ for task in tasks:
         df_delayed = df_delayed.append(y)
 
 # write aggregated df to disk
-df_delayed.to_parquet('sample2.parquet', engine='pyarrow')
+df_delayed.to_parquet('sample2.python-parquet', engine='pyarrow')

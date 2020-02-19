@@ -3,9 +3,9 @@ import pyarrow.parquet as pq
 import pandas as pd
 
 
-def write(df):
+def write(df,path='output.parquet'):
     table = pa.Table.from_pandas(df, preserve_index=True)
-    pq.write_table(table, 'output.parquet', compression='snappy')
+    pq.write_table(table, path, compression='snappy')
 
 
 def read(path):
@@ -17,7 +17,7 @@ def main():
     print("In Python writer file")
     path = '~/Desktop/Downloads/avgdmd.parquet'
     df = read(path)
-    print("Writing df to parquet file")
+    print("Writing df to python-parquet file")
     write(df)
 
 
